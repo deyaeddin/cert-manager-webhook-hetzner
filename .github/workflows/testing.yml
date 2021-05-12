@@ -16,13 +16,9 @@ jobs:
         uses: actions/checkout@v2
        -
         name: run tests
-        uses: jwsi/secret-parser@v1
-        with:
-          filename: testdata/hetzner/hetzner-secret.yml, testdata/hetzner/config.json
-          secret-name: HCLOUD_DNS_API_TOKEN, TEST_ZONE_NAME
-          secret-value: ${{ secrets.HCLOUD_DNS_API_TOKEN }}
         env:
-          TEST_ZONE_NAME: ${{ secrets.TEST_ZONE_NAME }}, ${{ secrets.TEST_ZONE_NAME }}
+          TEST_ZONE_NAME: ${{ secrets.TEST_ZONE_NAME }}
+          HCLOUD_DNS_API_TOKEN: ${{ secrets.HCLOUD_DNS_API_TOKEN }}
         run: make test
 
 
