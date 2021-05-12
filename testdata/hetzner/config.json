@@ -1,0 +1,5 @@
+{
+  "secretName": "hetzner-secret",
+  "zoneName": "farhand.me",
+  "apiUrl" : "https://dns.hetzner.com/api/v1"
+}
