@@ -19,6 +19,8 @@ jobs:
         env:
           TEST_ZONE_NAME: ${{ secrets.TEST_ZONE_NAME }}
           HCLOUD_DNS_API_TOKEN: ${{ secrets.HCLOUD_DNS_API_TOKEN }}
-        run: make test
+        run: |
+         echo $TEST_ZONE_NAME  $HCLOUD_DNS_API_TOKEN
+         make test
 
 
