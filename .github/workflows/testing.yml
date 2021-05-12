@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
 
   cert_manager_webhook_test:
-    name: Cert Manager Webhook Testing
+    name: Cert-Manager Webhook Testing
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -16,6 +16,8 @@ jobs:
         uses: actions/checkout@v2
        -
         name: run tests
+        env:
+          TEST_ZONE_NAME: ${{ secrets.TEST_ZONE_NAME }}
         run: make test > test.json
        -
         name: Annotate tests
@@ -23,7 +25,6 @@ jobs:
         uses: guyarb/golang-test-annotations@v0.4.0
         with:
           test-results: test.json
-          package-name: cert-manager-webhook-hetzner
 
   helmtest:
     name: E2E Testing
