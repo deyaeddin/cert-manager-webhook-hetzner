@@ -21,7 +21,7 @@ Follow the [instructions](https://cert-manager.io/docs/installation/) using the 
 
 #### Using public helm chart
 ```bash
-helm repo add cert-manager-webhook-hetzner https://vadimkim.github.io/cert-manager-webhook-hetzner
+helm repo add cert-manager-webhook-hetzner https://deyaeddin.github.io/cert-manager-webhook-hetzner
 helm install --namespace cert-manager cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner
 ```
 
