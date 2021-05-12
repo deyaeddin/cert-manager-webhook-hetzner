@@ -18,13 +18,7 @@ jobs:
         name: run tests
         env:
           TEST_ZONE_NAME: ${{ secrets.TEST_ZONE_NAME }}
-        run: make test > test.json
-       -
-        name: Annotate tests
-        if: always()
-        uses: guyarb/golang-test-annotations@v0.4.0
-        with:
-          test-results: test.json
+        run: make test
 
   helmtest:
     name: E2E Testing
