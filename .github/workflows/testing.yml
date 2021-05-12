@@ -1,0 +1,51 @@
+name: Tests
+
+on: [pull_request]
+
+jobs:
+
+  cert_manager_webhook_test:
+    name: Cert-Manager Webhook Testing
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ 1.16.x ]
+    steps:
+       -
+        name: checkout
+        uses: actions/checkout@v2
+       -
+        name: run tests
+        env:
+          TEST_ZONE_NAME: ${{ secrets.TEST_ZONE_NAME }}
+        run: make test > test.json
+       -
+        name: Annotate tests
+        if: always()
+        uses: guyarb/golang-test-annotations@v0.4.0
+        with:
+          test-results: test.json
+
+  helmtest:
+    name: E2E Testing
+    runs-on: ubuntu-latest
+    steps:
+    - 
+      uses: actions/checkout@v2
+    -
+      name: Set up Helm
+      uses: azure/setup-helm@v1
+    -
+      uses: actions/setup-python@v2
+    -
+      name: Set up chart-testing
+      uses: helm/chart-testing-action@v2.0.1
+    -
+      name: Run chart-testing (lint)
+      run: ct lint --all --chart-dirs chart/cert-manager-webhook-hetzner/
+    -
+      name: Create kind cluster
+      uses: helm/kind-action@v1.1.0
+    -
+      name: Run chart-testing (install)
+      run: ct install --all --chart-dirs chart/cert-manager-webhook-hetzner/
