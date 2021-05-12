@@ -1,5 +1,5 @@
 {
   "secretName": "hetzner-secret",
-  "zoneName": "farhand.me",
+  "zoneName": "${{ secrets.TEST_ZONE_NAME }}",
   "apiUrl" : "https://dns.hetzner.com/api/v1"
 }
