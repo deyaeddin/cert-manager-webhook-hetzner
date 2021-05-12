@@ -30,19 +30,3 @@ build:
 
 
 
-
-
-OUT := $(shell pwd)/out
-$(shell mkdir -p "$(OUT)")
-
-.PHONY: rendered-manifest.yaml
-rendered-manifest.yaml:
-	helm template \
-	    cert-manager-webhook-hetzner \
-        --set image.repository=$(IMAGE_NAME) \
-        --set image.tag=$(IMAGE_TAG) \
-		--namespace cert-manager \
-        deploy/cert-manager-webhook > "$(OUT)/rendered-manifest.yaml"
-
-
-
