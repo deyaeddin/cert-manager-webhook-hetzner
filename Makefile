@@ -22,11 +22,11 @@ clean-kubebuilder:
 	rm -Rf _test/kubebuilder
 
 
-IMAGE_NAME := "cert-manager-webhook-hetzner"
-IMAGE_TAG := "latest"
+IMAGE_NAME = "cert-manager-webhook-hetzner"
+IMAGE_TAG  = "latest"
 
 build:
-	docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" .
+	DOCKER_BUILDKIT=1 docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" .
 
 
 
