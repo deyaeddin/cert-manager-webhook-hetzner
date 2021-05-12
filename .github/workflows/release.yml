@@ -18,7 +18,6 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         allow-initial-development-versions: true
-        force-bump-patch-version: true
     -
       name: Check for changes
       uses: andymckay/cancel-action@0.2
