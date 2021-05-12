@@ -121,7 +121,7 @@ You also must encode your api token into base64 and put the hash into `testdata/
 Example:
 ```bash
 echo -n xxxxxxxxxxxxxxxxxxxxxxxxxxx | openssl base64
-# copy/past the result in testdata/hetzner-secret.yml
+# copy/past the result into api-key at testdata/hetzner-secret.yml where xxx...x is your actual token
 ```
 
 You can then run the test suite with:

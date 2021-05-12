@@ -34,7 +34,7 @@ func TestRunsSuite(t *testing.T) {
 }
 
 func GetRandomString(n int) string {
-	letters := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	letters := []rune("abcdefghijklmnopqrstuvwxyz")
 
 	b := make([]rune, n)
 	for i := range b {
