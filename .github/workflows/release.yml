@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+
+  release:
+    name: Container Image & Chart 
+    runs-on: ubuntu-latest
+    steps:
+    -
+      uses: actions/checkout@v2
+    - 
+      uses: go-semantic-release/action@v1.11.2
+      id: version
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        allow-initial-development-versions: true
+        force-bump-patch-version: true
+    -
+      name: Check for changes
+      uses: andymckay/cancel-action@0.2
+      if: ${{ steps.version.outputs.version == '' }}
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    # --------------------------------------------------------------------------------
+    -
+      name: Rollback Release
+      if: ${{ failure() && steps.version.outputs.version != '' }}
+      uses: author/action-rollback@stable
+      with:
+        tag: ${{ steps.version.outputs.version }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

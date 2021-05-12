@@ -3,12 +3,6 @@ OS ?= $(shell go env GOOS)
 ARCH ?= $(shell go env GOARCH)
 KUBEBUILDER_VERSION=2.3.2
 
-IMAGE_NAME := "cert-manager-webhook-hetzner"
-IMAGE_TAG := "latest"
-
-OUT := $(shell pwd)/deploy
-
-$(shell mkdir -p "$(OUT)")
 
 test: _test/kubebuilder
 	go test -v .
@@ -27,6 +21,10 @@ clean: clean-kubebuilder
 clean-kubebuilder:
 	rm -Rf _test/kubebuilder
 
+
+IMAGE_NAME := "cert-manager-webhook-hetzner"
+IMAGE_TAG := "latest"
+
 build:
 	docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" .
 
@@ -34,14 +32,17 @@ build:
 
 
 
-#.PHONY: rendered-manifest.yaml
-#rendered-manifest.yaml:
-#	helm template \
-#	    cert-manager-webhook-hetzner \
-#        --set image.repository=$(IMAGE_NAME) \
-#        --set image.tag=$(IMAGE_TAG) \
-#		--namespace cert-manager \
-#        deploy/cert-manager-webhook > "$(OUT)/rendered-manifest.yaml"
-#
+OUT := $(shell pwd)/out
+$(shell mkdir -p "$(OUT)")
+
+.PHONY: rendered-manifest.yaml
+rendered-manifest.yaml:
+	helm template \
+	    cert-manager-webhook-hetzner \
+        --set image.repository=$(IMAGE_NAME) \
+        --set image.tag=$(IMAGE_TAG) \
+		--namespace cert-manager \
+        deploy/cert-manager-webhook > "$(OUT)/rendered-manifest.yaml"
+
 
 
