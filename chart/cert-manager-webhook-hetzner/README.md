@@ -6,7 +6,7 @@
 
 ```bash
 helm repo add deyaeddin https://raw.githubusercontent.com/deyaeddin/cert-manager-webhook-hetzner/helmrepo/
-helm install my-cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner --version 0.1.1
+helm install my-cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner --version 0.1.x
 ```
 
 ## Introduction
