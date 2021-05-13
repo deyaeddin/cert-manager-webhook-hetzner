@@ -18,19 +18,14 @@ jobs:
         name: run tests
         env:
           TEST_ZONE_NAME: ${{ secrets.TEST_ZONE_NAME }}
-        run: make test > test.json
-       -
-        name: Annotate tests
-        if: always()
-        uses: guyarb/golang-test-annotations@v0.4.0
-        with:
-          test-results: test.json
+          HCLOUD_DNS_API_TOKEN: ${{ secrets.HCLOUD_DNS_API_TOKEN }}
+        run: make test
 
   helmtest:
     name: E2E Testing
     runs-on: ubuntu-latest
     steps:
-    - 
+    -
       uses: actions/checkout@v2
     -
       name: Set up Helm
@@ -49,3 +44,5 @@ jobs:
     -
       name: Run chart-testing (install)
       run: ct install --all --chart-dirs chart/cert-manager-webhook-hetzner/
+
+

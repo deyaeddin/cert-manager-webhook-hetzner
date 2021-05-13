@@ -18,9 +18,6 @@ kubebuilder
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-# Ignore the built binary
-cert-manager-webhook-hetzner
-
 
 # Make artifacts
 _test

@@ -115,18 +115,24 @@ else they will have undetermined behaviour when used with cert-manager.
 DNS01 webhook.**
 
 First, you need to have Hetzner account with access to DNS control panel. You need to create API token and have a registered and verified DNS zone there.
-Then you need to replace `zoneName` parameter at `testdata/hetzner/config.json` file with actual one.
-You also must encode your api token into base64 and put the hash into `testdata/hetzner/hetzner-secret.yml` file.
+Then you need to create 2 environment variables:
 
-Example:
+ - `TEST_ZONE_NAME` to be used as `zoneName` parameter for the generated `testdata/hetzner/config.json` file during the testing.
+ - `HCLOUD_DNS_API_TOKEN` to fill out the api-key field in the generated secret `testdata/hetzner/hetzner-secret.yml` file. You must encode your api token into base64 and use the hash 
+
+Example generating encoded api-key hash:
 ```bash
-echo -n xxxxxxxxxxxxxxxxxxxxxxxxxxx | openssl base64
-# copy/past the result in testdata/hetzner-secret.yml
+echo -n xxxxxxxxxxxxxxxxxxxxxxxxxxx | base64
 ```
 
 You can then run the test suite with:
 
 ```bash
-export TEST_ZONE_NAME=example.com. 
+export TEST_ZONE_NAME=example.com.
+export HCLOUD_DNS_API_TOKEN={result of echo -n xxxxxxxxxxxxxxxxxxxxxxxxxxx | base64}
 make test
 ```
+
+**Note** : resolved FQDN must end with '.', therefore, zoneName must end with the same.
+
+* **If you are forking this, you need to put these variables in repo secrets as used in [testing.yml](https://github.com/deyaeddin/cert-manager-webhook-hetzner/blob/c9d28d4489040a1fb2d89006ea1eb0dae9783728/.github/workflows/testing.yml#L18)** 
