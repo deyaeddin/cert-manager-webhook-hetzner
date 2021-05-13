@@ -23,12 +23,12 @@ Follow the [instructions](https://cert-manager.io/docs/installation/) using the 
 
 #### Using public helm chart
 ```bash
-helm repo add cert-manager-webhook-hetzner https://raw.githubusercontent.com/deyaeddin/cert-manager-webhook-hetzner/helmrepo/
+helm repo add deyaeddin https://raw.githubusercontent.com/deyaeddin/cert-manager-webhook-hetzner/helmrepo/
 
-"cert-manager-webhook-hetzner" has been added to your repositories
+"deyaeddin" has been added to your repositories
 
 # now let's install our Chart from our repository
-helm install -n cert-manager cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner
+helm install my-cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner --version 0.1.1
 
 ```
 
