@@ -7,7 +7,7 @@ on:
 jobs:
 
   release:
-    name: Container Image
+    name: Container Image & Helm Chart
     runs-on: ubuntu-latest
     steps:
     -
