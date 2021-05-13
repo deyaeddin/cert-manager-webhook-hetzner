@@ -7,7 +7,7 @@ on:
 jobs:
 
   release:
-    name: Container Image & Chart 
+    name: Container Image
     runs-on: ubuntu-latest
     steps:
     -
@@ -45,3 +45,42 @@ jobs:
     -
       name: Push Edge
       run: make push-release
+  # --------------------------------------------------------------------------------
+    -
+      name: Install helm
+      if: ${{ steps.version.outputs.version != '' }}
+      uses: azure/setup-helm@v1
+    -
+      name: Checkout branch for Chart repo
+      if: ${{ steps.version.outputs.version != '' }}
+      env:
+        STATIC_BRANCH: helmrepo
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "${GITHUB_ACTOR}"
+        git checkout "${STATIC_BRANCH}"
+    -
+      name: Package Helm Charts
+      if: ${{ steps.version.outputs.version != '' }}
+      env:
+        HELM_REPO: .
+        CHART_DIR: chart/cert-manager-webhook-hetzner/
+      run: |
+        helm package "${CHART_DIR}" -d "${HELM_REPO}" --version "${{ steps.version.outputs.version }}"
+    -
+      name: Index Helm Charts
+      if: ${{ steps.version.outputs.version != '' }}
+      env:
+        HELM_REPO: .
+      run: |
+        helm repo index --url "${HELM_REPO_URL}" "${HELM_REPO}"
+    -
+      name: Push to GitHub Pages
+      if: ${{ steps.version.outputs.version != '' }}
+      env:
+        STATIC_BRANCH: helmrepo
+        HELM_REPO: .
+      run: |
+        git add "${HELM_REPO}"
+        git commit -m "chore: add helm charts for release ${{ steps.version.outputs.version }}"
+        git push --set-upstream origin "${STATIC_BRANCH}"
