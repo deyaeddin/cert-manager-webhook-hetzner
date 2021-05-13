@@ -23,11 +23,18 @@ clean-kubebuilder:
 	rm -Rf _test/kubebuilder
 
 
+REGISTRY = "deyaeddin"
 IMAGE_NAME = "cert-manager-webhook-hetzner"
 IMAGE_TAG  = "latest"
 
 build:
-	DOCKER_BUILDKIT=1 docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" .
+	DOCKER_BUILDKIT=1 docker build -t "$(REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG)" .
 
+push-release:
+	docker push "$(REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG)"
 
+build-edge:
+	DOCKER_BUILDKIT=1 docker build -t "$(REGISTRY)/$(IMAGE_NAME):latest" .
 
+push-edge:
+	docker push "$(REGISTRY)/$(IMAGE_NAME):latest"
