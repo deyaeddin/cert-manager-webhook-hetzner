@@ -1,6 +1,8 @@
 
 **Note**: this is based on the project [vadimkim/cert-manager-webhook-hetzner](https://github.com/vadimkim/cert-manager-webhook-hetzner)
 
+[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cert-manager-webhook-hetzner)](https://artifacthub.io/packages/search?repo=cert-manager-webhook-hetzner)
+
 # ACME webhook for Hetzner DNS API
 
 This solver can be used when you want to use cert-manager with Hetzner DNS API. API documentation is [here](https://dns.hetzner.com/api-docs)
