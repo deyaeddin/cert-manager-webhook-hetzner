@@ -11,9 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     -
-      uses: actions/checkout@v2
-    - 
-      uses: go-semantic-release/action@latest
+      name: Checkout
+      uses: actions/checkout@v2.3.4
+    -
+      name: go-semantic-release
+      uses: go-semantic-release/action@1.11.2
       id: version
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
