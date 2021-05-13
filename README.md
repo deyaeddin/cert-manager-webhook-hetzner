@@ -21,14 +21,19 @@ Follow the [instructions](https://cert-manager.io/docs/installation/) using the 
 
 #### Using public helm chart
 ```bash
-helm repo add cert-manager-webhook-hetzner https://deyaeddin.github.io/cert-manager-webhook-hetzner
-helm install --namespace cert-manager cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner
+helm repo add cert-manager-webhook-hetzner https://raw.githubusercontent.com/deyaeddin/cert-manager-webhook-hetzner/helmrepo/
+
+"cert-manager-webhook-hetzner" has been added to your repositories
+
+# now let's install our Chart from our repository
+helm install -n cert-manager cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner
+
 ```
 
 #### From local checkout
 
 ```bash
-helm install --namespace cert-manager cert-manager-webhook-hetzner deploy/cert-manager-webhook-hetzner
+helm install --namespace cert-manager cert-manager-webhook-hetzner chart/cert-manager-webhook-hetzner
 ```
 **Note**: The kubernetes resources used to install the Webhook should be deployed within the same namespace as the cert-manager.
 
