@@ -19,9 +19,7 @@ jobs:
         env:
           TEST_ZONE_NAME: ${{ secrets.TEST_ZONE_NAME }}
           HCLOUD_DNS_API_TOKEN: ${{ secrets.HCLOUD_DNS_API_TOKEN }}
-        run: |
-         echo $TEST_ZONE_NAME  $HCLOUD_DNS_API_TOKEN
-          run: make test > test_results.json
+        run: make test > test_results.json
        -
         name: Annotate tests
         if: always()

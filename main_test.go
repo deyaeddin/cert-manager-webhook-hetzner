@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/jetstack/cert-manager/test/acme/dns"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
@@ -48,8 +47,6 @@ func TestRunsSuite(t *testing.T) {
 		klog.Error(err)
 	}
 	_ = ioutil.WriteFile(secretYamlFilePath, secretYamlFile, 0644)
-
-	fmt.Printf("Marshal--- secretYaml:\n%s\n\n", string(secretYamlFile))
 
 	providerConfig := hetznerDNSProviderConfig{
 		secretName,
