@@ -44,7 +44,7 @@ jobs:
       run: make build-edge
     -
       name: Push Edge
-      run: make push-release
+      run: make push-edge
   # --------------------------------------------------------------------------------
     -
       name: Install helm
