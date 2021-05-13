@@ -1,7 +1,8 @@
 
-**Note**: this is based on the project [vadimkim/cert-manager-webhook-hetzner](https://github.com/vadimkim/cert-manager-webhook-hetzner)
-
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/cert-manager-webhook-hetzner)](https://artifacthub.io/packages/search?repo=cert-manager-webhook-hetzner)
+
+
+**Note**: this is based on the project [vadimkim/cert-manager-webhook-hetzner](https://github.com/vadimkim/cert-manager-webhook-hetzner)
 
 # ACME webhook for Hetzner DNS API
 
@@ -28,7 +29,7 @@ helm repo add deyaeddin https://raw.githubusercontent.com/deyaeddin/cert-manager
 "deyaeddin" has been added to your repositories
 
 # now let's install our Chart from our repository
-helm install my-cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner --version 0.1.1
+helm install my-cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner --version 0.1.x
 
 ```
 
