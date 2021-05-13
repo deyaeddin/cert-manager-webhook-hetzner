@@ -135,4 +135,4 @@ make test
 
 **Note** : resolved FQDN must end with '.', therefore, zoneName must end with the same.
 
-* **If you are forking this, you need to put these variables in repo secrets as used in [testing.yml](https://github.com/deyaeddin/cert-manager-webhook-hetzner/blob/c9d28d4489040a1fb2d89006ea1eb0dae9783728/.github/workflows/testing.yml#L18)** 
+* **If you are forking this, you need to put these variables in repo secrets as used in [testing.yml](https://github.com/deyaeddin/cert-manager-webhook-hetzner/blob/6b1264fc49adad427901a8177f26789be626d352/.github/workflows/testing.yml#L18)** 
