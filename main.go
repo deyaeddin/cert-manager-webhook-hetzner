@@ -203,8 +203,10 @@ with record name that is FQDN without zone name. Sub-domains is a part of
 record name and is separated by "."
 */
 func recordName(fqdn string, domain string) string {
-	r := regexp.MustCompile("(.+)\\." + domain + "\\.")
+	klog.Infof("starting process on fqdn: %s for domain: %s", fqdn, domain)
+	r := regexp.MustCompile("(.+)\\." + domain)
 	name := r.FindStringSubmatch(fqdn)
+	klog.Infof("found record name : %s", name)
 	if len(name) != 2 {
 		klog.Errorf("splitting domain name %s failed!", fqdn)
 		return ""
@@ -244,7 +246,9 @@ func callDnsApi(url string, method string, body io.Reader, config internal.Confi
 }
 
 func searchZoneId(config internal.Config) (string, error) {
-	url := config.ApiUrl + "/zones?name=" + config.ZoneName
+
+	// removing the dot so we can find the zone name correctly
+	url := config.ApiUrl + "/zones?name=" + strings.TrimSuffix(config.ZoneName, ".")
 
 	// Get Zone configuration
 	zoneRecords, err := callDnsApi(url, "GET", nil, config)
@@ -264,5 +268,7 @@ func searchZoneId(config internal.Config) (string, error) {
 	if zones.Meta.Pagination.TotalEntries != 1 {
 		return "", fmt.Errorf("wrong number of zones in response %d must be exactly = 1", zones.Meta.Pagination.TotalEntries)
 	}
+
+	klog.Infof(" found zone name: %s  with total records: %v", zones.Zones[0].Name, zones.Zones[0].RecordsCount)
 	return zones.Zones[0].Id, nil
 }
