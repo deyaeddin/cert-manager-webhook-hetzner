@@ -37,10 +37,10 @@ jobs:
         uses: helm/chart-testing-action@v2.0.1
       -
         name: Run chart-testing (lint)
-        run: ct lint --all --chart-dirs kubernetes/helm/
+        run: ct lint --all --chart-dirs chart/cert-manager-webhook-hetzner/
       -
         name: Create kind cluster
         uses: helm/kind-action@v1.1.0
       -
         name: Run chart-testing (install)
-        run: ct install --all --chart-dirs kubernetes/helm/
+        run: ct install --all --chart-dirs chart/cert-manager-webhook-hetzner/
