@@ -92,6 +92,8 @@ data:
   api-key: your-key-base64-encoded
 ```
 
+**Note: if you are using terraform to create a resource "kubernetes_secret" ... then you should not hash the your-key. 
+
 ### Create a certificate
 
 Finally you can create certificates, for example:
