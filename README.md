@@ -72,7 +72,7 @@ spec:
             solverName: hetzner
             config:
               secretName: hetzner-secret
-              zoneName: example.com
+              zoneName: example.com.
               apiUrl: https://dns.hetzner.com/api/v1
 ```
 
