@@ -53,7 +53,7 @@ jobs:
       if: ${{ steps.version.outputs.version != '' }}
       uses: azure/setup-helm@v1
     -
-      name: Checkout branch for Chart repo
+      name: Switching to branch Helmrepo
       if: ${{ steps.version.outputs.version != '' }}
       env:
         STATIC_BRANCH: helmrepo
@@ -61,9 +61,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "${GITHUB_ACTOR}"
         git fetch
-        rm -rf .generated-go-semantic-release-changelog.md
-        rm -rf .semrel
-        git checkout "${STATIC_BRANCH}"
+        git switch -f "${STATIC_BRANCH}"
     -
       name: Package Helm Charts
       if: ${{ steps.version.outputs.version != '' }}
