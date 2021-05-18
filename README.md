@@ -1,5 +1,5 @@
-
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/deyaeddin)](https://artifacthub.io/packages/search?repo=deyaeddin)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdeyaeddin%2Fcert-manager-webhook-hetzner.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdeyaeddin%2Fcert-manager-webhook-hetzner?ref=badge_shield)
 
 **Note**: this is based on the project [vadimkim/cert-manager-webhook-hetzner](https://github.com/vadimkim/cert-manager-webhook-hetzner)
 
@@ -145,3 +145,6 @@ make test
 **Note** : resolved FQDN must end with '.', therefore, zoneName must end with the same.
 
 * **If you are forking this, you need to put these variables in repo secrets as used in [testing.yml](https://github.com/deyaeddin/cert-manager-webhook-hetzner/blob/6b1264fc49adad427901a8177f26789be626d352/.github/workflows/testing.yml#L18)** 
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdeyaeddin%2Fcert-manager-webhook-hetzner.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdeyaeddin%2Fcert-manager-webhook-hetzner?ref=badge_large)
