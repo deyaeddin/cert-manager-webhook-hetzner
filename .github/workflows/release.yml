@@ -1,8 +1,7 @@
-name: Release
-
+name: New Release
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+    branches: ['master']
 
 jobs:
 
@@ -13,6 +12,8 @@ jobs:
     -
       name: Checkout
       uses: actions/checkout@v2.3.4
+      with:
+        fetch-depth: 0
     -
       name: go-semantic-release
       uses: go-semantic-release/action@v1.11.2
@@ -53,37 +54,30 @@ jobs:
       if: ${{ steps.version.outputs.version != '' }}
       uses: azure/setup-helm@v1
     -
-      name: Switching to branch Helmrepo
-      if: ${{ steps.version.outputs.version != '' }}
-      env:
-        STATIC_BRANCH: helmrepo
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "${GITHUB_ACTOR}"
-        git fetch
-        git switch -f "${STATIC_BRANCH}"
-    -
       name: Package Helm Charts
       if: ${{ steps.version.outputs.version != '' }}
       env:
-        HELM_REPO: .
-        CHART_DIR: chart/cert-manager-webhook-hetzner/
+        HELM_REPO: docs/chart
+        CHART_DIR: charts/cert-manager-webhook-hetzner/
       run: |
         helm package "${CHART_DIR}" -d "${HELM_REPO}" --version "${{ steps.version.outputs.version }}"
     -
       name: Index Helm Charts
       if: ${{ steps.version.outputs.version != '' }}
       env:
-        HELM_REPO: .
+        HELM_REPO: docs/chart
+        HELM_REPO_URL: https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart
       run: |
         helm repo index --url "${HELM_REPO_URL}" "${HELM_REPO}"
     -
       name: Push to GitHub Pages
       if: ${{ steps.version.outputs.version != '' }}
       env:
-        STATIC_BRANCH: helmrepo
-        HELM_REPO: .
+        HELM_REPO: docs/chart
       run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "${GITHUB_ACTOR}"
+        git fetch
         git add "${HELM_REPO}"
         git commit -m "chore: add helm charts for release ${{ steps.version.outputs.version }}"
-        git push --set-upstream origin "${STATIC_BRANCH}"
+        git push

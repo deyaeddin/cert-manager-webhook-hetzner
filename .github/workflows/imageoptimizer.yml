@@ -1,0 +1,22 @@
+
+name: Optimization
+
+on:
+  schedule:
+    - cron: '0 11 * * 6'
+
+jobs:
+
+  optimize-images:
+    name: Optimize Images
+    runs-on: ubuntu-latest    
+    steps:
+    -
+      name: Checkout code
+      uses: actions/checkout@v2.3.4
+    -
+      name: Optimize images
+      uses: 9sako6/imgcmp@1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REMOTE_BRANCH: dev-01
