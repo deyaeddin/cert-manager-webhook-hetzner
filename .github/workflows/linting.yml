@@ -1,0 +1,69 @@
+
+name: Linting
+
+on: [pull_request]
+
+jobs:
+
+  k8slint:
+    name: Kubernetes
+    runs-on: ubuntu-latest
+    steps:
+    -
+      uses: actions/checkout@v2.3.4
+    -
+      name: Set up Helm
+      uses: azure/setup-helm@v1.1
+    -
+      name: Compile helm chart
+      run: |
+        mkdir compiled/
+        helm template charts/cert-manager-webhook-hetzner > compiled/all.yaml
+    -
+      uses: stackrox/kube-linter-action@v1.0.2
+      with:
+        directory: compiled/
+        config: .github/kubelinter.yml
+  
+  codespell:
+    name: Language
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Check out code.
+      uses: actions/checkout@v2.3.4
+    -
+      name: codespell
+      uses: plettich/action-codespell@v0.3
+      with:
+        github_token: ${{ secrets.github_token }}
+
+  yamllint:
+    name: YAML
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Check out code.
+      uses: actions/checkout@v2.3.4
+    -
+      name: yamllint
+      uses: reviewdog/action-yamllint@v1.2
+      with:
+        github_token: ${{ secrets.github_token }}
+        reporter: github-pr-review
+        yamllint_flags: 'charts/'
+
+  hadolint:
+    name: Dockerfiles
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Check out code.
+      uses: actions/checkout@v2.3.4
+    -
+      name: hadolint
+      uses: reviewdog/action-hadolint@v1.19
+      with:
+        github_token: ${{ secrets.github_token }}
+        reporter: github-pr-review
+        hadolint_flags: 'Dockerfile'

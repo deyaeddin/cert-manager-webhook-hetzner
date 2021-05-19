@@ -5,7 +5,7 @@
 ## TL;DR
 
 ```bash
-helm repo add deyaeddin https://raw.githubusercontent.com/deyaeddin/cert-manager-webhook-hetzner/helmrepo/
+helm repo add deyaeddin https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/
 helm install my-cert-manager-webhook-hetzner deyaeddin/cert-manager-webhook-hetzner --version 0.1.x
 ```
 
@@ -22,7 +22,7 @@ This chart bootstraps [cert-manager-webhook-hetzner](https://github.com/deyaeddi
 
 Add the chart repo to Helm:
 ```bash
-helm repo add deyaeddin https://raw.githubusercontent.com/deyaeddin/cert-manager-webhook-hetzner/helmrepo/
+helm repo add deyaeddin https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/
 
 deyaeddin has been added to your repositories
 

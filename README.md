@@ -23,7 +23,7 @@ Follow the [instructions](https://cert-manager.io/docs/installation/) using the 
 
 #### Using public helm chart
 ```bash
-helm repo add deyaeddin https://raw.githubusercontent.com/deyaeddin/cert-manager-webhook-hetzner/helmrepo/
+helm repo add deyaeddin https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/
 
 "deyaeddin" has been added to your repositories
 
