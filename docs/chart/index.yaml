@@ -3,7 +3,17 @@ entries:
   cert-manager-webhook-hetzner:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-05-19T07:55:09.283004198Z"
+    created: "2021-05-19T09:19:29.303809947Z"
+    description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
+    digest: 0d3090c2980d81faa8ee7ea623d247fe4c5869eb182769ce87dba163c138aa3f
+    icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
+    name: cert-manager-webhook-hetzner
+    urls:
+    - https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/cert-manager-webhook-hetzner-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    appVersion: 1.0.0
+    created: "2021-05-19T09:19:29.30326353Z"
     description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
     digest: e307a6e12981241b4a1a90bc1251af0fe2f0379a6116a474e0d5b22802762e76
     icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
@@ -11,4 +21,4 @@ entries:
     urls:
     - https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/cert-manager-webhook-hetzner-0.1.0.tgz
     version: 0.1.0
-generated: "2021-05-19T07:55:09.282073396Z"
+generated: "2021-05-19T09:19:29.302513308Z"
