@@ -21,3 +21,4 @@ kubebuilder
 # Make artifacts
 _test
 
+/compiled/

@@ -21,4 +21,8 @@ RUN apk add --no-cache ca-certificates
 
 COPY --from=build /workspace/webhook /usr/local/bin/webhook
 
+RUN chown -R 1001:1001 /usr/local/bin/webhook
+
+USER 1001:1001
+
 ENTRYPOINT ["webhook"]
