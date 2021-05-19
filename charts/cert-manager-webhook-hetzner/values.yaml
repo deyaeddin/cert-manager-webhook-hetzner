@@ -69,7 +69,7 @@ affinity: {}
 
 
 
-## NGINX pods' Security Context.
+## Webhook pods' Security Context.
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
 ##
 podSecurityContext:
@@ -83,7 +83,7 @@ podSecurityContext:
   ##
 #  sysctls: []
 
-## NGINX Core containers' Security Context (only main container).
+## Webhook Core containers' Security Context (only main container).
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
 ##
 containerSecurityContext:
