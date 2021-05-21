@@ -5,7 +5,6 @@ import (
 	"github.com/jetstack/cert-manager/test/acme/dns"
 	"gopkg.in/yaml.v3"
 	"io/ioutil"
-	"k8s.io/klog"
 	"math/rand"
 	"os"
 	"testing"
@@ -34,6 +33,8 @@ type SecretYaml struct {
 
 func TestRunsSuite(t *testing.T) {
 
+	slogger := zapLogger.Sugar()
+
 	secretYaml := SecretYaml{}
 
 	secretYaml.ApiVersion = "v1"
@@ -44,7 +45,7 @@ func TestRunsSuite(t *testing.T) {
 
 	secretYamlFile, err := yaml.Marshal(&secretYaml)
 	if err != nil {
-		klog.Error(err)
+		slogger.Error(err)
 	}
 	_ = ioutil.WriteFile(secretYamlFilePath, secretYamlFile, 0644)
 
