@@ -9,13 +9,13 @@ import (
 	"github.com/deyaeddin/cert-manager-webhook-hetzner/internal"
 	"github.com/jetstack/cert-manager/pkg/acme/webhook/apis/acme/v1alpha1"
 	"github.com/jetstack/cert-manager/pkg/acme/webhook/cmd"
+	"go.uber.org/zap"
 	"io"
 	"io/ioutil"
 	extapi "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	"k8s.io/klog"
 	"net/http"
 	"os"
 	"regexp"
@@ -23,6 +23,7 @@ import (
 )
 
 var GroupName = os.Getenv("GROUP_NAME")
+var zapLogger, _ = zap.NewProduction()
 
 func main() {
 	if GroupName == "" {
@@ -49,7 +50,8 @@ func (c *hetznerDNSProviderSolver) Name() string {
 }
 
 func (c *hetznerDNSProviderSolver) Present(ch *v1alpha1.ChallengeRequest) error {
-	klog.Infof("call function Present: namespace=%s, zone=%s, fqdn=%s", ch.ResourceNamespace, ch.ResolvedZone, ch.ResolvedFQDN)
+	slogger := zapLogger.Sugar()
+	slogger.Infof("call function Present: namespace=%s, zone=%s, fqdn=%s", ch.ResourceNamespace, ch.ResolvedZone, ch.ResolvedFQDN)
 
 	config, err := clientConfig(c, ch)
 
@@ -59,12 +61,14 @@ func (c *hetznerDNSProviderSolver) Present(ch *v1alpha1.ChallengeRequest) error 
 
 	addTxtRecord(config, ch)
 
-	klog.Infof("Presented txt record %v", ch.ResolvedFQDN)
+	slogger.Infof("Presented txt record %v", ch.ResolvedFQDN)
 
 	return nil
 }
 
 func (c *hetznerDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) error {
+	slogger := zapLogger.Sugar()
+
 	config, err := clientConfig(c, ch)
 
 	if err != nil {
@@ -96,7 +100,7 @@ func (c *hetznerDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) error 
 
 	var recordId string
 	name := recordName(ch.ResolvedFQDN, config.ZoneName)
-	klog.Infof("record name after recordName: %s  for FQDN: %s", name, ch.ResolvedFQDN)
+	slogger.Infof("record name after recordName: %s  for FQDN: %s", name, ch.ResolvedFQDN)
 
 	for i := len(records.Records) - 1; i >= 0; i-- {
 		if records.Records[i].Name == strings.ToLower(name) {
@@ -105,21 +109,23 @@ func (c *hetznerDNSProviderSolver) CleanUp(ch *v1alpha1.ChallengeRequest) error 
 		}
 	}
 
-	klog.Infof(" deleting recordID: %s", recordId)
+	slogger.Infof(" deleting recordID: %s", recordId)
 	// Delete TXT record
 	url = config.ApiUrl + "/records/" + recordId
 	del, err := callDnsApi(url, "DELETE", nil, config)
 
 	if err != nil {
-		klog.Error(err)
+		slogger.Error(err)
 	}
-	klog.Infof("Delete TXT record result: %s", string(del))
+	slogger.Infof("Delete TXT record result: %s", string(del))
 	return nil
 }
 
 func (c *hetznerDNSProviderSolver) Initialize(kubeClientConfig *rest.Config, stopCh <-chan struct{}) error {
+
+	slogger := zapLogger.Sugar()
 	k8sClient, err := kubernetes.NewForConfig(kubeClientConfig)
-	klog.V(6).Infof("Input variable stopCh is %d length", len(stopCh))
+	slogger.Infof("Input variable stopCh is %d length", len(stopCh))
 	if err != nil {
 		return err
 	}
@@ -151,13 +157,14 @@ func stringFromSecretData(secretData *map[string][]byte, key string) (string, er
 }
 
 func addTxtRecord(config internal.Config, ch *v1alpha1.ChallengeRequest) {
+	slogger := zapLogger.Sugar()
 	url := config.ApiUrl + "/records"
 
 	name := recordName(ch.ResolvedFQDN, config.ZoneName)
 	zoneId, err := searchZoneId(config)
 
 	if err != nil {
-		klog.Errorf("unable to find id for zone name `%s`; %v", config.ZoneName, err)
+		slogger.Errorf("unable to find id for zone name `%s`; %v", config.ZoneName, err)
 	}
 
 	var jsonStr = fmt.Sprintf(`{"value":"%s", "ttl":120, "type":"TXT", "name":"%s", "zone_id":"%s"}`, ch.Key, name, zoneId)
@@ -165,9 +172,9 @@ func addTxtRecord(config internal.Config, ch *v1alpha1.ChallengeRequest) {
 	add, err := callDnsApi(url, "POST", bytes.NewBuffer([]byte(jsonStr)), config)
 
 	if err != nil {
-		klog.Error(err)
+		slogger.Error(err)
 	}
-	klog.Infof("Added TXT record result: %s", string(add))
+	slogger.Infof("Added TXT record result: %s", string(add))
 }
 
 func clientConfig(c *hetznerDNSProviderSolver, ch *v1alpha1.ChallengeRequest) (internal.Config, error) {
@@ -203,18 +210,20 @@ with record name that is FQDN without zone name. Sub-domains is a part of
 record name and is separated by "."
 */
 func recordName(fqdn string, domain string) string {
-	klog.Infof("starting process on fqdn: %s for domain: %s", fqdn, domain)
+	slogger := zapLogger.Sugar()
+	slogger.Infof("starting process on fqdn: %s for domain: %s", fqdn, domain)
 	r := regexp.MustCompile("(.+)\\." + domain)
 	name := r.FindStringSubmatch(fqdn)
-	klog.Infof("found record name : %s", name)
+	slogger.Infof("found record name : %s", name)
 	if len(name) != 2 {
-		klog.Errorf("splitting domain name %s failed!", fqdn)
+		slogger.Errorf("splitting domain name %s failed!", fqdn)
 		return ""
 	}
 	return name[1]
 }
 
 func callDnsApi(url string, method string, body io.Reader, config internal.Config) ([]byte, error) {
+	slogger := zapLogger.Sugar()
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return []byte{}, fmt.Errorf("unable to execute request %v", err)
@@ -231,7 +240,7 @@ func callDnsApi(url string, method string, body io.Reader, config internal.Confi
 	defer func() {
 		err := resp.Body.Close()
 		if err != nil {
-			klog.Fatal(err)
+			slogger.Fatal(err)
 		}
 	}()
 
@@ -241,12 +250,12 @@ func callDnsApi(url string, method string, body io.Reader, config internal.Confi
 	}
 
 	text := "Error calling API status:" + resp.Status + " url: " + url + " method: " + method
-	klog.Error(text)
+	slogger.Error(text)
 	return nil, errors.New(text)
 }
 
 func searchZoneId(config internal.Config) (string, error) {
-
+	slogger := zapLogger.Sugar()
 	// removing the dot so we can find the zone name correctly
 	url := config.ApiUrl + "/zones?name=" + strings.TrimSuffix(config.ZoneName, ".")
 
@@ -269,6 +278,6 @@ func searchZoneId(config internal.Config) (string, error) {
 		return "", fmt.Errorf("wrong number of zones in response %d must be exactly = 1", zones.Meta.Pagination.TotalEntries)
 	}
 
-	klog.Infof(" found zone name: %s  with total records: %v", zones.Zones[0].Name, zones.Zones[0].RecordsCount)
+	slogger.Infof(" found zone name: %s  with total records: %v", zones.Zones[0].Name, zones.Zones[0].RecordsCount)
 	return zones.Zones[0].Id, nil
 }
