@@ -26,7 +26,8 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         allow-initial-development-versions: true
-        force-bump-patch-version: true
+        changelog-generator-opt: "emojis=true"
+        force-bump-patch-version: ${{ github.event.inputs.force_rlease }}
     -
       name: Set up QEMU
       uses: docker/setup-qemu-action@v1.1.0
@@ -83,7 +84,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "${GITHUB_ACTOR}"
         git fetch
-        cp charts/cert-manager-webhook-hetzner/README.md docs/chart
+        cp charts/cert-manager-webhook-hetzner/README.md "${HELM_REPO}"
         git add "${HELM_REPO}"
-        git commit -m "chore: add helm charts for new release
+        git commit -m "chore: add helm charts for release"
         git push
