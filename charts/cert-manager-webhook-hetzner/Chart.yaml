@@ -1,6 +1,32 @@
-apiVersion: v1
-appVersion: "1.0.0"
+apiVersion: v2
+appVersion: 1.1.0
+name: cert-manager-webhook-hetzner
 description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
 icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
-name: cert-manager-webhook-hetzner
-version: 1.0.0
+home: https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/
+sources:
+  - https://github.com/okteto/cert-manager-webhook-hetzner
+version: 1.1.0
+type: application
+keywords:
+  - cert-manager
+  - tls
+  - dns
+  - hetzner
+  - webhook
+  - letsencrypt
+maintainers:
+  - name: deyaeddin
+    email: deya@gmx.com
+annotations:
+  artifacthub.io/images: |
+    - name: 0.1.5
+      image: deyaeddin/cert-manager-webhook-hetzner:0.1.5
+    - name: latest
+      image: deyaeddin/cert-manager-webhook-hetzner:latest
+#      whitelisted: true  # we want to generate a security report
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/links: |
+    - name: Hetzner DNS Public API
+      url: https://dns.hetzner.com/api-docs
+

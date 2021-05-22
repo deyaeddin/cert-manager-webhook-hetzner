@@ -67,11 +67,11 @@ spec:
     solvers:
       - dns01:
           webhook:
-            groupName: acme.yourdomain.here
+            groupName: acme.unique.company.name
             solverName: hetzner
             config:
               secretName: hetzner-secret
-              zoneName: example.com.
+              zoneName: example.com. # REPLACE THIS WITH YOUR ZONE!!!
               apiUrl: https://dns.hetzner.com/api/v1
 ```
 
