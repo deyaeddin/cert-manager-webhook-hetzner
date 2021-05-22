@@ -18,6 +18,8 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+replicaCount: 1
+
 nameOverride: ""
 fullnameOverride: ""
 
@@ -28,7 +30,7 @@ service:
 secretName:
   - hetzner-secret
 
-replicaCount: 1
+
 
 resources:
   limits:
