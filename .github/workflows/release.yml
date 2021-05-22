@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     branches: ['master']
     inputs:
-      force_rlease:
+      force_release:
         required: true
         description: "force bump patch version"
         default: "false"
@@ -27,7 +27,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         allow-initial-development-versions: true
         changelog-generator-opt: "emojis=true"
-        force-bump-patch-version: ${{ github.event.inputs.force_rlease }}
+        force-bump-patch-version: ${{ github.event.inputs.force_release }}
     -
       name: Set up QEMU
       uses: docker/setup-qemu-action@v1.1.0
@@ -86,5 +86,5 @@ jobs:
         git fetch
         cp charts/cert-manager-webhook-hetzner/README.md "${HELM_REPO}"
         git add "${HELM_REPO}"
-        git commit -m "chore: add helm charts for release"
+        git commit -m "chore: add helm charts for current release"
         git push
