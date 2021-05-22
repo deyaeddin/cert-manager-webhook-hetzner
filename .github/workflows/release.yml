@@ -85,5 +85,5 @@ jobs:
         git fetch
         cp charts/cert-manager-webhook-hetzner/README.md "${HELM_REPO}"
         git add "${HELM_REPO}"
-        git commit -m "chore: add helm charts for release ${{ steps.version.outputs.version }}"
+        git commit -m "chore: add helm charts for new release
         git push
