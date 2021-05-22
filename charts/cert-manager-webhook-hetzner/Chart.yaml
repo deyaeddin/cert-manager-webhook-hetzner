@@ -29,4 +29,3 @@ annotations:
   artifacthub.io/links: |
     - name: Hetzner DNS Public API
       url: https://dns.hetzner.com/api-docs
-
