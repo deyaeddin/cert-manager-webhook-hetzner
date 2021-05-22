@@ -1,9 +1,43 @@
 apiVersion: v1
 entries:
   cert-manager-webhook-hetzner:
+  - annotations:
+      artifacthub.io/images: |
+        - name: 0.1.5
+          image: deyaeddin/cert-manager-webhook-hetzner:0.1.5
+        - name: latest
+          image: deyaeddin/cert-manager-webhook-hetzner:latest
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |-
+        - name: Hetzner DNS Public API
+          url: https://dns.hetzner.com/api-docs
+    apiVersion: v2
+    appVersion: 1.1.0
+    created: "2021-05-22T03:03:58.7442518Z"
+    description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
+    digest: c9296a350781cb5c1482f3b6dda321e0dcfe02caffde55a794282ec092ca2bf8
+    home: https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/
+    icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
+    keywords:
+    - cert-manager
+    - tls
+    - dns
+    - hetzner
+    - webhook
+    - letsencrypt
+    maintainers:
+    - email: deya@gmx.com
+      name: deyaeddin
+    name: cert-manager-webhook-hetzner
+    sources:
+    - https://github.com/okteto/cert-manager-webhook-hetzner
+    type: application
+    urls:
+    - https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/cert-manager-webhook-hetzner-0.1.6.tgz
+    version: 0.1.6
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-05-21T11:16:41.997774046Z"
+    created: "2021-05-22T03:03:58.74353481Z"
     description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
     digest: 444d1b84a6ac56d2cb78b066e64cf60962acb6595b8b4c6563d721650b48692d
     icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
@@ -13,7 +47,7 @@ entries:
     version: 0.1.5
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-05-21T11:16:41.997248831Z"
+    created: "2021-05-22T03:03:58.743088216Z"
     description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
     digest: 9d1dba5bb1af976d711443533d020a63cae13e03abc912ad919862e054a40cc4
     icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
@@ -23,7 +57,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-05-21T11:16:41.996725316Z"
+    created: "2021-05-22T03:03:58.742643723Z"
     description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
     digest: f7059358f6d6c6766e86cfe981711c90348ee1758166bebe9da689ba8ac37a81
     icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
@@ -33,7 +67,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-05-21T11:16:41.996162Z"
+    created: "2021-05-22T03:03:58.742145629Z"
     description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
     digest: d361f5419c83c1498c22355f2149df5d6432c059d3f395bb44ad6dcd0c537810
     icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
@@ -43,7 +77,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-05-21T11:16:41.995662086Z"
+    created: "2021-05-22T03:03:58.741580737Z"
     description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
     digest: 0d3090c2980d81faa8ee7ea623d247fe4c5869eb182769ce87dba163c138aa3f
     icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
@@ -53,7 +87,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2021-05-21T11:16:41.995165072Z"
+    created: "2021-05-22T03:03:58.740956346Z"
     description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
     digest: e307a6e12981241b4a1a90bc1251af0fe2f0379a6116a474e0d5b22802762e76
     icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
@@ -61,4 +95,4 @@ entries:
     urls:
     - https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/cert-manager-webhook-hetzner-0.1.0.tgz
     version: 0.1.0
-generated: "2021-05-21T11:16:41.994521854Z"
+generated: "2021-05-22T03:03:58.740247655Z"
