@@ -20,8 +20,8 @@ maintainers:
     email: deya@gmx.com
 annotations:
   artifacthub.io/images: |
-    - name: 0.1.5
-      image: deyaeddin/cert-manager-webhook-hetzner:0.1.5
+    - name: 0.1.8
+      image: deyaeddin/cert-manager-webhook-hetzner:0.1.8
     - name: latest
       image: deyaeddin/cert-manager-webhook-hetzner:latest
 #      whitelisted: true  # we want to generate a security report
