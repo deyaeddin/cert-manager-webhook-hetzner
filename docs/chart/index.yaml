@@ -3,8 +3,8 @@ entries:
   cert-manager-webhook-hetzner:
   - annotations:
       artifacthub.io/images: |
-        - name: 0.1.5
-          image: deyaeddin/cert-manager-webhook-hetzner:0.1.5
+        - name: 0.1.8
+          image: deyaeddin/cert-manager-webhook-hetzner:0.1.8
         - name: latest
           image: deyaeddin/cert-manager-webhook-hetzner:latest
       artifacthub.io/license: Apache-2.0
