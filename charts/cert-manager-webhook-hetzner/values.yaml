@@ -15,7 +15,6 @@ certManager:
 
 image:
   repository: deyaeddin/cert-manager-webhook-hetzner
-  tag: latest
   pullPolicy: IfNotPresent
 
 replicaCount: 1
