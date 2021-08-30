@@ -1,12 +1,12 @@
 apiVersion: v2
-appVersion: 1.1.0
+appVersion: 0.0.1 # dummy value, set with helm package
 name: cert-manager-webhook-hetzner
 description: Allow cert-manager to solve DNS challenges using Hetzner DNS API
 icon: https://res.cloudinary.com/deyaeddin/image/upload/v1621402563/projects/webhook_vdwtdl.png
 home: https://deyaeddin.github.io/cert-manager-webhook-hetzner/chart/
 sources:
   - https://github.com/deyaeddin/cert-manager-webhook-hetzner
-version: 1.1.0
+version: 0.0.1 # dummy value, set with helm package
 type: application
 keywords:
   - cert-manager
