@@ -69,7 +69,7 @@ jobs:
         HELM_REPO: docs/chart
         CHART_DIR: charts/cert-manager-webhook-hetzner/
       run: |
-        helm package "${CHART_DIR}" -d "${HELM_REPO}" --version "${{ steps.version.outputs.version }}"
+        helm package "${CHART_DIR}" -d "${HELM_REPO}" --version "${{ steps.version.outputs.version }}" --app-version "${{ steps.version.outputs.version }}"
     -
       name: Index Helm Charts
       if: ${{ steps.version.outputs.version != '' }}
